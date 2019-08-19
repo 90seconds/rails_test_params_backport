@@ -13,13 +13,15 @@ module RailsTestParamsBackport
     get '/profile',
       params: { id: 1 },
       headers: { 'X-Extra-Header' => '123' },
-      env: { 'action_dispatch.custom' => 'custom' }
+      env: { 'action_dispatch.custom' => 'custom' },
+      xhr: true,
+      as: :json
     Please change your arguments to reflect this change.
   EOS
 
   class << self
     def offensive_parameters?(parameters)
-      offensive_parameters = parameters.keys - %i(params headers env)
+      offensive_parameters = parameters.keys - %i(params headers env xhr as)
       offensive_parameters.any?
     end
   end
